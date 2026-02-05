@@ -8,7 +8,7 @@ class SavingsData(BaseModel):
     amount: float
     deposits: float
     rate: float
-    time: int
+    time: float
 
 
 # Model for validated data

@@ -1,7 +1,7 @@
 import math
 import numpy as np
-from models.savings import SavingsData, ValidatedSavingsData
-from models.output import SavingsResult, TimelinePoint
+from src.models.savings import SavingsData, ValidatedSavingsData
+from src.models.output import SavingsResult, TimelinePoint
 from typing import List
 
 
