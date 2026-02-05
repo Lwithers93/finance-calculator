@@ -8,7 +8,7 @@ type OutputProps = {
 };
 
 type SavingsResponse = {
-  final: string;
+  final: number;
   timeline: TimelinePoint[];
 };
 
@@ -18,7 +18,7 @@ type TimelinePoint = {
 };
 
 export default function Output({ data, setData }: OutputProps) {
-  const [msg2, setMsg2] = useState("");
+  const [resData, setResData] = useState<SavingsResponse | null>(null);
   // const [msg, setMsg] = useState("");
   const [timeline, setTimeline] = useState<TimelinePoint[]>([]);
 
@@ -26,9 +26,8 @@ export default function Output({ data, setData }: OutputProps) {
   const handleSubmit = async () => {
     try {
       const reqData = await saveSavings(data);
-      setMsg2(reqData.message);
+      setResData(reqData);
     } catch (err) {
-      setMsg2("Error saving data"); // Error msg to user
       console.log(err); // Log the error
     }
   };
@@ -41,7 +40,33 @@ export default function Output({ data, setData }: OutputProps) {
       >
         Calculate
       </button>
-      <div className="flex p-6">{msg2}</div>
+      <div className="flex flex-col p-6">
+        <div>You will save: £{resData && resData.final.toFixed(2)}</div>
+        <div className="flex flex-col gap-2 p-6">
+          <p>Savings Timeline:</p>
+
+          <div className="grid grid-cols-2 border">
+            <div className="grid grid-cols-2 col-span-2 border-b">
+              <div>Year</div>
+              <div>Total</div>
+            </div>
+            {resData &&
+              resData.timeline.map((t, i) => {
+                if (i < 11) {
+                  return (
+                    <div
+                      className="grid grid-cols-2 col-span-2 border-b"
+                      key={i}
+                    >
+                      <div className="px-1 border-r">{t.year}</div>
+                      <div className="px-1">£{t.total.toFixed(2)}</div>
+                    </div>
+                  );
+                }
+              })}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

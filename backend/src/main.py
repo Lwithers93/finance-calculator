@@ -20,20 +20,15 @@ app.add_middleware(
 async def save_savings(data: SavingsData):
     # Validate user input data
     valid_data = validateData(data)
-    if not isinstance(data, ValidatedSavingsData):
-        print(f"Error: Expected Valid Savings Data, got {type(valid_data.__name__)}")
-        return {"message": "Invalid data input from user. Please try again."}
     # Pass valid data to calculate function
     calculated_data = calculateTotalWithTimeline(valid_data)
     # Get results
     total = calculated_data["final"]  # savings total
     timeline = calculated_data["timeline"]  # timeline of yearly totals
 
-    return {
-        "message": f"Starting with £{data.amount:.2f}. Depositing £{data.deposits:.2f} at {data.frequency} intervals. You have saved £{total}."
-    }
+    return calculated_data
 
 
-# @app.get("/api/hello")
-# async def hello():
-#     return {"message": "Hello from Python Luke!"}
+@app.get("/api/hello")
+async def hello():
+    return {"message": "Hello from Python Luke!"}
