@@ -59,6 +59,7 @@ Upcoming future improvements:
 - Authentication for users
 - Persistent storage for ongoing savings data
 - Income and tax calculations
+- Student Loan payments
 - Dockerization (frontend + backend)
 
 ## Author
